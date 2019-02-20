@@ -47,7 +47,7 @@ class GetChoice:
         Display the options.
         """
         for i in range(0, len(self.contentTuple)):
-            print('[', i + 1, ']', self.contentTuple[i].title, 'by', self.contentTuple[i].artist)
+            print('[{}] {} by {}'.format(i + 1, self.contentTuple[i].title, self.contentTuple[i].artist))
 
     def _get_choice(self):
         """

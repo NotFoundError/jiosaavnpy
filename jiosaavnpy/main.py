@@ -2,7 +2,7 @@
 
 import argparse
 
-from jiosaavnpy.song.search import SearchJioSaavn
+from jiosaavnpy.song.song import Song
 from jiosaavnpy.saavn.utility import JioSaavnURL
 
 
@@ -23,6 +23,7 @@ def parse_arguments():
 def main():
     args = parse_arguments()
     URLtype = JioSaavnURL(args.entity).type
+    print(URLtype)
 
     if URLtype == 'playlist':
         # Do something
@@ -32,4 +33,7 @@ def main():
         pass
     else:
         # Its a song
-        
+        print(args.entity)
+        song = Song(args.entity, 'name')
+        song.act()
+

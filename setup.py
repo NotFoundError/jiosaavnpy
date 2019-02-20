@@ -2,7 +2,12 @@ from setuptools import setup
 
 setup(
     name="JioSaavnpy",
-    packages=['jiosaavnpy'],
+    packages=[
+                'jiosaavnpy',
+                'jiosaavnpy.saavn',
+                'jiosaavnpy.song',
+                'jiosaavnpy.playlist'
+             ],
     author='deepjyoti30',
     author_email="deep.barman30@gmail.com",
     description="Download songs from JioSaavn with metadat",
