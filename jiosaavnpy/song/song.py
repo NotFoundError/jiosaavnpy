@@ -3,6 +3,8 @@
 from jiosaavnpy.saavn.saavn_downloader import get_download_URL
 from jiosaavnpy.saavn.utility import GetChoice
 from jiosaavnpy.song.search import SearchJioSaavn
+from jiosaavnpy.downloader import downloader
+from jiosaavnpy.downloader import metadata
 
 
 class Song:
@@ -25,7 +27,11 @@ class Song:
         self.choice = GetChoice(result).choice
         # Download the song now
         dwURl = get_download_URL(result[self.choice].url)
-        print(dwURl, 'is the URL of the choosen song!')
+        # Pass the dwURL to be downloaded.
+        des = downloader.download(dwURl, name=result[self.choice].title)
+        # Set the metadata
+        if des is not False:
+            metadata.SetMetadata(des, result[self.choice])
 
     def _song_by_URL(self):
         """
@@ -33,7 +39,8 @@ class Song:
         """
         result = SearchJioSaavn(self.entity, 'URL').results
         dwURL = get_download_URL(result.url)
-        print(dwURL, 'is the URL of the passed song!')
+        downloader.download(dwURL)
+        # print(dwURL, 'is the URL of the passed song!')
 
     def act(self):
         """Act according to the type."""

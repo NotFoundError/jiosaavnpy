@@ -1,5 +1,6 @@
 """File to define a class that stores the song data."""
 
+import re
 
 class JioSaavnSong:
     """
@@ -30,3 +31,11 @@ class JioSaavnSong:
         self.artwork = artwork
         self.url = url
         self.trackNumber = trackNumber
+        self._improve_artwork()
+
+    def _improve_artwork(self):
+        """
+        Try to improve the artwork if possible.
+        """
+        self.artwork = re.sub(r'150x150', '500x500', self.artwork)
+        # Add some try catch stuff here!
