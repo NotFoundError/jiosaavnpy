@@ -2,6 +2,7 @@
 
 import re
 
+
 class JioSaavnSong:
     """
         title: Title of the song

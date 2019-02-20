@@ -18,33 +18,25 @@ class Song:
         self.entity = entity
         self.type = entity_type
         self.choice = 0
+        self.result = []
+        self._get_song()
+        self._download()
 
-    def _song_by_name(self):
+    def _get_song(self):
         """Search the song online, ask the user for an option
         and download the choosen song.
         """
-        result = SearchJioSaavn(self.entity, 'name').results
-        self.choice = GetChoice(result).choice
+        self.result = SearchJioSaavn(self.entity, self.type).results
+        if self.type == 'name':
+            self.choice = GetChoice(self.result).choice
+        elif self.type == 'URL':
+            self.choice = 0
+
+    def _download(self):
         # Download the song now
-        dwURl = get_download_URL(result[self.choice].url)
+        dwURl = get_download_URL(self.result[self.choice].url)
         # Pass the dwURL to be downloaded.
-        des = downloader.download(dwURl, name=result[self.choice].title)
+        des = downloader.download(dwURl, name=self.result[self.choice].title)
         # Set the metadata
         if des is not False:
-            metadata.SetMetadata(des, result[self.choice])
-
-    def _song_by_URL(self):
-        """
-        Extract the meta info from the site and get the encrypted URL.
-        """
-        result = SearchJioSaavn(self.entity, 'URL').results
-        dwURL = get_download_URL(result.url)
-        downloader.download(dwURL)
-        # print(dwURL, 'is the URL of the passed song!')
-
-    def act(self):
-        """Act according to the type."""
-        if self.type == 'name':
-            self._song_by_name()
-        elif self.type == 'URL':
-            self._song_by_URL()
+            metadata.SetMetadata(des, self.result[self.choice])

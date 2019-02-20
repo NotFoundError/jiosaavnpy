@@ -22,27 +22,19 @@ class SearchJioSaavn:
                                    (X11; Ubuntu; Linux x86_64; rv:49.0)\
                                    Gecko/20100101 Firefox/49.0'
                        }
-        self.name = name
         self.results = []
-        self.songType = songType
-        self.act()
+        if songType == 'name':
+            self.URL = self._URL_PREPEND.format(name)
+        else:
+            self.URL = name
 
-    def act(self):
-        """
-        Act according to the songType.
-        """
-        if self.songType == 'name':
-            URL = self._URL_PREPEND.format(self.name)
-            self._search(URL)
-        elif self.songType == 'URL':
-            self._search(self.name)
-            self.results = self.results[0]
+        self._search()
 
-    def _search(self, URL):
+    def _search(self):
         """
         Get the search page of jiosaavn and scrap it to get the data.
         """
-        response = requests.get(URL, headers=self.headers)
+        response = requests.get(self.URL, headers=self.headers)
         soup = BeautifulSoup(response.text, 'lxml')
         songs = soup.find_all('div', {'class': 'hide song-json'})
 

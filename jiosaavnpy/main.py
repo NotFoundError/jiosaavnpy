@@ -30,8 +30,6 @@ def main():
         pass
     elif URLtype == 'song':
         song = Song(args.entity, 'URL')
-        song.act()
     else:
         # Its a song
         song = Song(args.entity, 'name')
-        song.act()
