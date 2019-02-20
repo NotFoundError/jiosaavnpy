@@ -15,13 +15,14 @@ def parse_arguments():
 
     parser.add_argument('entity',
                         help="Name of the song to search / URL of a playlist",
-                        default=None, type=str)
+                        default=None, type=str, nargs="*")
     args = parser.parse_args()
     return args
 
 
 def main():
     args = parse_arguments()
+    args.entity = ' '.join(args.entity)
     URLtype = JioSaavnURL(args.entity).type
 
     if URLtype == 'playlist':
