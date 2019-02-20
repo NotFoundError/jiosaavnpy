@@ -1,7 +1,16 @@
 """Metadata related functions defined."""
 
 import os
-from mutagen.id3 import ID3, APIC, TIT2, TPE1, TALB, TRCK, TYER
+from mutagen.id3 import (
+                    ID3,
+                    APIC,
+                    TIT2,
+                    TPE1,
+                    TALB,
+                    TRCK,
+                    TYER,
+                    ID3NoHeaderError
+                        )
 from mutagen.mp3 import MP3
 
 from jiosaavnpy.downloader import downloader
@@ -41,7 +50,11 @@ class SetMetadata:
         SONG_PATH = self.SONG_PATH
 
         audio = MP3(SONG_PATH, ID3=ID3)
-        data = ID3(SONG_PATH)
+
+        try:
+            data = ID3(SONG_PATH)
+        except ID3NoHeaderError:
+            data = ID3()
 
         # If cover is not None then add it
         if self.cover is not None:
@@ -68,7 +81,7 @@ class SetMetadata:
         data.add(TALB(encoding=3, text=self.song_data.album))
         data.add(TRCK(encoding=3, text=str(self.song_data.trackNumber)))
 
-        data.save()
+        data.save(SONG_PATH)
 
         # Show the written stuff in a better format
         print('================================')
