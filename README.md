@@ -4,7 +4,7 @@ JioSaavnPy is a tool to download songs from JioSaavn.
 
 ## TODO
 
-- [ ] Add support for playlist
+- [x] Add support for playlist
 
 ## Credits
 

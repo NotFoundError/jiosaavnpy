@@ -9,6 +9,7 @@ class JioSaavnSong:
         artist: Artist of the song
         album: Album name of the song
         releaseDate: Release date of the song
+        perma_url: URL of the page
         artwork: URL to the artwork
         url: URL of the song that will be used to download it
         trackNumber: Number of the track in the album
@@ -20,6 +21,7 @@ class JioSaavnSong:
                 artist,
                 album,
                 releaseDate,
+                perma_url,
                 artwork,
                 url,
                 trackNumber='1'
@@ -29,6 +31,7 @@ class JioSaavnSong:
         self.artist = artist
         self.album = album
         self.releaseDate = releaseDate
+        self.perma_url = perma_url
         self.artwork = artwork
         self.url = url
         self.trackNumber = trackNumber

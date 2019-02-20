@@ -15,6 +15,11 @@ from mutagen.mp3 import MP3
 
 from jiosaavnpy.downloader import downloader
 
+from jiosaavnpy.logger import Logger
+
+# Setup logger
+logger = Logger('metadata')
+
 
 class SetMetadata:
     """
@@ -32,14 +37,15 @@ class SetMetadata:
     def _checkexistence(self):
         """Check if the passed song path exists."""
         if not os.path.isfile(self.SONG_PATH):
-            print("{}: does not exist".format(self.SONG_PATH))
-            exit(-1)
+            logger.critical("{}: does not exist".format(self.SONG_PATH))
+            # exit(-1)
 
     def _dw_cover(self):
         """
         Download the cover from the data provided.
         """
         if self.song_data.artwork != '':
+            logger.info('Downloading album artwork...')
             result = downloader.download(self.song_data.artwork, False)
             self.cover = result if result is not False else None
 
@@ -59,7 +65,7 @@ class SetMetadata:
         # If cover is not None then add it
         if self.cover is not None:
             if not os.path.isfile(self.cover):
-                print("{}: does not exist. Skipping..".format(self.cover))
+                logger.warning("{}: does not exist. Skipping..".format(self.cover))
             else:
                 imagedata = open(self.cover, 'rb').read()
                 data.add(APIC(3, 'image/jpeg', 3, 'Front cover', imagedata))

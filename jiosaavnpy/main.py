@@ -4,6 +4,12 @@ import argparse
 
 from jiosaavnpy.song.song import Song
 from jiosaavnpy.saavn.utility import JioSaavnURL
+from jiosaavnpy.playlist.playlist import JioSaavnPlaylist
+
+from jiosaavnpy.logger import Logger
+
+# Get the logger
+logger = Logger('main')
 
 
 def parse_arguments():
@@ -26,10 +32,12 @@ def main():
     URLtype = JioSaavnURL(args.entity).type
 
     if URLtype == 'playlist':
-        # Do something
-        pass
+        logger.info('Passed entity is a playlist URL')
+        JioSaavnPlaylist(args.entity)
     elif URLtype == 'song':
-        song = Song(args.entity, 'URL')
+        logger.info('Passed entity is a song URL')
+        Song(args.entity, 'URL')
     else:
         # Its a song
-        song = Song(args.entity, 'name')
+        logger.info('Passed entity is a Song name')
+        Song(args.entity, 'name')

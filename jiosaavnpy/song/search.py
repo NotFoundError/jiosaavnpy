@@ -6,6 +6,11 @@ import requests
 
 from jiosaavnpy.saavn.songmeta import JioSaavnSong
 
+from jiosaavnpy.logger import Logger
+
+# Setup logger
+logger = Logger('search')
+
 
 class SearchJioSaavn:
     """
@@ -25,6 +30,7 @@ class SearchJioSaavn:
         self.results = []
         if songType == 'name':
             self.URL = self._URL_PREPEND.format(name)
+            logger.info('Searching {} in JioSaavn'.format(name))
         else:
             self.URL = name
 
@@ -52,6 +58,7 @@ class SearchJioSaavn:
                                     obj['singers'],
                                     obj['album'],
                                     obj['year'],
+                                    obj['perma_url'],
                                     obj['image_url'],
                                     obj['url']
                                       )

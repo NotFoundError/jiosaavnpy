@@ -6,6 +6,11 @@ from jiosaavnpy.song.search import SearchJioSaavn
 from jiosaavnpy.downloader import downloader
 from jiosaavnpy.downloader import metadata
 
+from jiosaavnpy.logger import Logger
+
+# Setup logger
+logger = Logger('song')
+
 
 class Song:
     """Takes two arguments.
@@ -23,7 +28,8 @@ class Song:
         self._download()
 
     def _get_song(self):
-        """Search the song online, ask the user for an option
+        """
+        Search the song online, ask the user for an option
         and download the choosen song.
         """
         self.result = SearchJioSaavn(self.entity, self.type).results
@@ -37,6 +43,7 @@ class Song:
         dwURl = get_download_URL(self.result[self.choice].url)
         # Pass the dwURL to be downloaded.
         des = downloader.download(dwURl, name=self.result[self.choice].title)
+        logger.info('Song downloaded to {}'.format(des))
         # Set the metadata
         if des is not False:
             metadata.SetMetadata(des, self.result[self.choice])
