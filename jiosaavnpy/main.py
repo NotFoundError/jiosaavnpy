@@ -23,17 +23,14 @@ def parse_arguments():
 def main():
     args = parse_arguments()
     URLtype = JioSaavnURL(args.entity).type
-    print(URLtype)
 
     if URLtype == 'playlist':
         # Do something
         pass
     elif URLtype == 'song':
-        # Do something
-        pass
+        song = Song(args.entity, 'URL')
+        song.act()
     else:
         # Its a song
-        print(args.entity)
         song = Song(args.entity, 'name')
         song.act()
-
