@@ -45,9 +45,9 @@ class Song:
         dwURl = get_download_URL(self.result[self.choice].url)
         # Pass the dwURL to be downloaded.
         download_obj = Download(dwURl, name=self.result[self.choice].title, des_folder=self.entity_des)
-        download_obj.download()
+        status = download_obj.download()
         des = download_obj.des_path
         logger.info('Song downloaded to {}'.format(des))
         # Set the metadata
-        if des is not False:
+        if status is not False:
             metadata.SetMetadata(des, self.result[self.choice])

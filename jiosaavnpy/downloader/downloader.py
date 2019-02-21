@@ -62,9 +62,11 @@ class Download:
         as returned from the server, if it is, then skip 
         downloading.
         """
-        if self.des_path.stat().st_size >= size:
-            return True
-        else:
+        try:
+            logger.debug(size)
+            logger.debug(self.des_path.stat().st_size)
+            return True if self.des_path.stat().st_size >= size else False
+        except FileNotFoundError:
             return False
 
     def _resolve_path_issues(self):
@@ -92,7 +94,6 @@ class Download:
             self.des_path = Path(self.des_folder).joinpath(self.name)
 
             u = urllib.request.urlopen(self.URL)
-            f = open(self.des_path, 'wb')
             meta = u.info()
 
             file_size = int(meta["Content-Length"])
@@ -100,7 +101,9 @@ class Download:
             # Check if the file is already present.
             if self._is_present(file_size):
                 logger.info('File already downloaded with proper metadata. Skipping..')
-                return None
+                return False
+
+            f = open(self.des_path, 'wb')
 
             file_size_dl = 0
             block_sz = 8192
@@ -168,6 +171,7 @@ class Download:
 
             if self.verbose:
                 print()
+            return True
         except ConnectionError:
             print("Connection Error!")
             return False
