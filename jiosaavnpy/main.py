@@ -20,7 +20,8 @@ def parse_arguments():
                                     for more details.")
 
     parser.add_argument('entity',
-                        help="Name of the song to search / URL of a playlist",
+                        help="Name of the song to search / URL of a playlist\
+                        /URL of a song/ URL of an album",
                         default=None, type=str, nargs="*")
     args = parser.parse_args()
     return args

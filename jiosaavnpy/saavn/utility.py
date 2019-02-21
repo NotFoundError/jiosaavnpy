@@ -14,19 +14,43 @@ class JioSaavnURL:
     def _checkURL(self):
         """Check the URL and update the URL type accordingly."""
         self._is_valid_URL()
-        self._is_playlist_URL()
+        if self.type == 'jio':
+            self._is_playlist_URL()
+            self._is_song_URL()
+        else:
+            pass
 
     def _is_valid_URL(self):
         """Check if the passed URL is a valid JioSaavn URL."""
         match = re.findall(r'^(https://www.)?(jio)?saavn\.com.*?$', self.URL)
         if match:
+            self.type = 'jio'
+
+    def _is_song_URL(self):
+        """
+        Check if the passed URL is a song URL.
+
+        Song URL's start with jiosaaavn.com/song/
+        """
+        match = re.findall(r'^(https://www.)?(jio)?saavn\.com/song/.*?$', self.URL)
+        if match:
             self.type = 'song'
 
     def _is_playlist_URL(self):
-        """Check if the passed URL is a JioSaavn playlist URL."""
-        match = re.findall(r'(https://www.)?(jio)?saavn.com/(s/playlist|featured)/.*?', self.URL)
+        """
+        Check if the passed URL is a JioSaavn playlist URL.
+        """
+        match = re.findall(r'^.*?(jio)?saavn.com/(s/playlist|featured)/.*?', self.URL)
         if match:
             self.type = 'playlist'
+
+    def _is_album_URL(self):
+        """
+        Check if the passed URL is an album URL.
+        """
+        match = re.findall(r'^.*?(jio)?saavn.com/album/.*?', self.URL)
+        if match:
+            self.type = 'album'
 
 
 class GetChoice:

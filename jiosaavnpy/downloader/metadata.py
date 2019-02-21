@@ -13,7 +13,7 @@ from mutagen.id3 import (
                         )
 from mutagen.mp3 import MP3
 
-from jiosaavnpy.downloader import downloader
+from jiosaavnpy.downloader.downloader import Download
 
 from jiosaavnpy.logger import Logger
 
@@ -46,7 +46,9 @@ class SetMetadata:
         """
         if self.song_data.artwork != '':
             logger.info('Downloading album artwork...')
-            result = downloader.download(self.song_data.artwork, False)
+            download_obj = Download(self.song_data.artwork, False)
+            download_obj.download()
+            result = download_obj.des_path
             self.cover = result if result is not False else None
 
     def _set_data(self):
