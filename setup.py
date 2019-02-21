@@ -8,6 +8,7 @@ setup(
                 'jiosaavnpy.song',
                 'jiosaavnpy.playlist',
                 'jiosaavnpy.downloader',
+                'jiosaavnpy.album'
              ],
     author='deepjyoti30',
     author_email="deep.barman30@gmail.com",

@@ -16,6 +16,7 @@ class JioSaavnURL:
         self._is_valid_URL()
         if self.type == 'jio':
             self._is_playlist_URL()
+            self._is_album_URL()
             self._is_song_URL()
         else:
             pass

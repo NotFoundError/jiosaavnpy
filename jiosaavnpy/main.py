@@ -5,6 +5,7 @@ import argparse
 from jiosaavnpy.song.song import Song
 from jiosaavnpy.saavn.utility import JioSaavnURL
 from jiosaavnpy.playlist.playlist import JioSaavnPlaylist
+from jiosaavnpy.album.album import JioSaavnAlbum
 
 from jiosaavnpy.logger import Logger
 
@@ -35,6 +36,9 @@ def main():
     if URLtype == 'playlist':
         logger.info('Passed entity is a playlist URL')
         JioSaavnPlaylist(args.entity)
+    elif URLtype == 'album':
+        logger.info('Passed entity is an album')
+        JioSaavnAlbum(args.entity)
     elif URLtype == 'song':
         logger.info('Passed entity is a song URL')
         Song(args.entity, 'URL')
