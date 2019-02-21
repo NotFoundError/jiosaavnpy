@@ -72,7 +72,7 @@ Above command downloads the album [x (Webley Edition)](https://www.jiosaavn.com/
 It basically scraps the JioSaavn pages to get the meta info of playlists, albums, songs passed.
 
 The download URL of the song is extracted by [drt420](https://github.com/drt420)'s script that is linked
-in the Credits section.
+in the [Credits](#Credits) section.
 
 ## Credits
 
